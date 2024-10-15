@@ -1,33 +1,33 @@
-﻿State,Category,Spending
-New South Wales,Holiday,14697
-New South Wales,Visiting friends and relatives,6002
-New South Wales,Business,5598
-New South Wales,Other purpose,1284
-Victoria,Holiday,11415
-Victoria,Visiting friends and relatives,3980
-Victoria,Business,3565
-Victoria,Other purpose,757
-Queensland,Holiday,14847
-Queensland,Visiting friends and relatives,4538
-Queensland,Business,5206
-Queensland,Other purpose,1056
-South Australia,Holiday,2823
-South Australia,Visiting friends and relatives,1315
-South Australia,Business,1357
-South Australia,Other purpose,325
-Western Australia,Holiday,4642
-Western Australia,Visiting friends and relatives,1579
-Western Australia,Business,3787
-Western Australia,Other purpose,594
-Tasmania,Holiday,2433
-Tasmania,Visiting friends and relatives,514
-Tasmania,Business,510
-Tasmania,Other purpose,83
-Northern Territory,Holiday,1337
-Northern Territory,Visiting friends and relatives,0
-Northern Territory,Business,687
-Northern Territory,Other purpose,0
-Australian Capital Territory,Holiday,697
-Australian Capital Territory,Visiting friends and relatives,723
-Australian Capital Territory,Business,846
-Australian Capital Territory,Other purpose,97
+﻿State,Category,Spending,Trips
+New South Wales,Holiday,14697,15590,
+New South Wales,Visiting friends and relatives,6002,12982
+New South Wales,Business,5598,6994
+New South Wales,Other purpose,1284,2357
+Victoria,Holiday,11415,13332
+Victoria,Visiting friends and relatives,3980,9583
+Victoria,Business,3565,4554
+Victoria,Other purpose,757,1385
+Queensland,Holiday,14847,10794
+Queensland,Visiting friends and relatives,4538,8099
+Queensland,Business,5206,5758
+Queensland,Other purpose,1056,1492
+South Australia,Holiday,2823,3164
+South Australia,Visiting friends and relatives,1315,2363
+South Australia,Business,1357,1674
+South Australia,Other purpose,325,496
+Western Australia,Holiday,4642,4376
+Western Australia,Visiting friends and relatives,1579,2663
+Western Australia,Business,3787,3417
+Western Australia,Other purpose,594,758
+Tasmania,Holiday,2433,1690
+Tasmania,Visiting friends and relatives,514,853
+Tasmania,Business,510,545
+Tasmania,Other purpose,83,162
+Northern Territory,Holiday,1337,654
+Northern Territory,Visiting friends and relatives,0,0
+Northern Territory,Business,687,493
+Northern Territory,Other purpose,0,0
+Australian Capital Territory,Holiday,697,816
+Australian Capital Territory,Visiting friends and relatives,723,1172
+Australian Capital Territory,Business,846,906
+Australian Capital Territory,Other purpose,97,230
