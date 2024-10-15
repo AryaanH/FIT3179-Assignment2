@@ -1,0 +1,106 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Tourist Spending($) in different Australian States per person(2023 and 2024)",
+  "width": 700,
+  "height": 500,
+  "projection": {"type": "equirectangular"},
+  "data": {
+    "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/data/state_wise_spending_data.csv",
+    "format": {"type": "csv"}
+  },
+  "params": [
+    {
+      "name": "yearFilter",
+      "value": 2024,
+      "bind": {
+        "input": "radio",
+        "options": [2023, 2024],
+        "name": "Select Year: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "lookup": "State",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/js/ne_10m_admin_1_states_provinces.json",
+          "format": {
+            "type": "topojson",
+            "feature": "ne_10m_admin_1_states_provinces"
+          }
+        },
+        "key": "properties.name"
+      },
+      "as": "countryLayout"
+    },
+    {"filter": "datum.Year == yearFilter"},
+    {
+      "calculate": "round((datum.Spending/datum.Trips) * 1000)",
+      "as": "Spending per person"
+    },
+    {
+      "calculate": "upper(slice(datum.countryLayout.properties.abbrev, 0, [length(datum.countryLayout.properties.abbrev)-1]))",
+      "as": "Formatted Abbrev"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 1},
+      "encoding": {
+        "shape": {"field": "countryLayout", "type": "geojson"},
+        "color": {
+          "field": "Spending per person",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "range": [
+              "#f0f9e8",
+              "#ccebc5",
+              "#a8ddb5",
+              "#7bccc4",
+              "#4eb3d3",
+              "#2b8cbe",
+              "#08589e"
+            ],
+            "domain": [800, 900, 1000, 1100, 1200, 1800]
+          }
+        },
+        "tooltip": [
+          {"field": "State", "type": "nominal", "title": "State"},
+          {
+            "field": "Spending per person",
+            "type": "quantitative",
+            "title": "Spending per Person($)"
+          },
+          {"field": "Year", "type": "ordinal", "title": "Year"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 9,
+        "fontWeight": "lighter",
+        "dy": -7,
+        "dx": -6,
+        "color": "black"
+      },
+      "encoding": {
+        "text": {"field": "Formatted Abbrev"},
+        "longitude": {"field": "countryLayout.properties.longitude"},
+        "latitude": {"field": "countryLayout.properties.latitude"},
+        "tooltip": [
+          {"field": "State", "type": "nominal", "title": "State"},
+          {
+            "field": "Spending per person",
+            "type": "quantitative",
+            "title": "Spending per Person($)"
+          },
+          {"field": "Year", "type": "ordinal", "title": "Year"}
+        ]
+      }
+    }
+  ],
+  "config": {}
+}
