@@ -1,17 +1,17 @@
-﻿State,Year,Spending
-New South Wales,2023,30215
-New South Wales,2024,30675
-Victoria,2023,22487
-Victoria,2024,22636
-Queensland,2023,28836
-Queensland,2024,28506
-South Australia,2023,6694
-South Australia,2024,6682
-Western Australia,2023,11462
-Western Australia,2024,12283
-Tasmania,2023,3510
-Tasmania,2024,3869
-Northern Territory,2023,2684
-Northern Territory,2024,2581
-Australian Capital Territory,2023,2403
-Australian Capital Territory,2024,2649
+﻿State,Year,Spending,Trips
+New South Wales,2023,30215,36183
+New South Wales,2024,30675,37138
+Victoria,2023,22487,27820
+Victoria,2024,22636,28513
+Queensland,2023,28836,25268
+Queensland,2024,28506,25588
+South Australia,2023,6694,7425
+South Australia,2024,6682,7574
+Western Australia,2023,11462,11183
+Western Australia,2024,12283,11029
+Tasmania,2023,3510,2853
+Tasmania,2024,3869,3203
+Northern Territory,2023,2684,1495
+Northern Territory,2024,2581,1394
+Australian Capital Territory,2023,2403,3107
+Australian Capital Territory,2024,2649,3123
