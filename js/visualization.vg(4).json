@@ -1,0 +1,117 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "background": "white",
+  "padding": 5,
+  "width": 600,
+  "height": 400,
+  "title": {
+    "text": "Domestic Tourist Spending by Category in Australia (2024)",
+    "frame": "group"
+  },
+  "style": "cell",
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/data/visualisation4.csv",
+      "format": {"type": "csv", "delimiter": ","}
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "stack",
+          "groupby": ["Category"],
+          "field": "Spending",
+          "sort": {"field": [], "order": []},
+          "as": ["Spending_start", "Spending_end"],
+          "offset": "zero"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"Spending\"]) && isFinite(+datum[\"Spending\"])"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "rect",
+      "style": ["bar"],
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "fill": {"scale": "color", "field": "Category"},
+          "tooltip": {
+            "signal": "{\"Category\": isValid(datum[\"Category\"]) ? datum[\"Category\"] : \"\"+datum[\"Category\"], \"Spending ($M)\": format(datum[\"Spending\"], \",.2f\")}"
+          },
+          "ariaRoleDescription": {"value": "bar"},
+          "description": {
+            "signal": "\"Spending: \" + (format(datum[\"Spending\"], \",.0f\")) + \"; Category: \" + (isValid(datum[\"Category\"]) ? datum[\"Category\"] : \"\"+datum[\"Category\"]) + \"; Spending ($M): \" + (format(datum[\"Spending\"], \",.2f\"))"
+          },
+          "x": {"scale": "x", "field": "Spending_end"},
+          "x2": {"scale": "x", "field": "Spending_start"},
+          "y": {"scale": "y", "field": "Category"},
+          "height": {"signal": "max(0.25, bandwidth('y'))"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "domain": {
+        "data": "data_0",
+        "fields": ["Spending_start", "Spending_end"]
+      },
+      "range": [0, {"signal": "width"}],
+      "nice": true,
+      "zero": true
+    },
+    {
+      "name": "y",
+      "type": "band",
+      "domain": {
+        "data": "source_0",
+        "field": "Category",
+        "sort": {"op": "sum", "field": "Spending", "order": "descending"}
+      },
+      "range": [0, {"signal": "height"}],
+      "paddingInner": 0.1,
+      "paddingOuter": 0.05
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "data_0", "field": "Category", "sort": true},
+      "range": ["#44AA99"]
+    }
+  ],
+  "axes": [
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "Spending ($M)",
+      "format": ",.0f",
+      "labelFlush": true,
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(width/40)"},
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "Category",
+      "labelLimit": 200,
+      "zindex": 0
+    }
+  ],
+  "config": {
+    "axis": {"grid": false},
+    "style": {"cell": {"stroke": "transparent"}}
+  }
+}
