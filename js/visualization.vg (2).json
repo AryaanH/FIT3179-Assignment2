@@ -1,0 +1,129 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "background": "white",
+  "padding": 5,
+  "width": 700,
+  "height": 400,
+  "title": {"text": "Visitor Reasons by State", "frame": "group"},
+  "style": "cell",
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/data/category_spending.csv",
+      "format": {"type": "csv", "delimiter": ","},
+      "transform": [
+        {
+          "type": "formula",
+          "expr": "format((datum.Trips*1000)/1000000, '.2f')",
+          "as": "Adjusted Trips"
+        }
+      ]
+    },
+    {
+      "name": "data_0",
+      "source": "source_0",
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["State", "Reason", "Adjusted Trips"],
+          "ops": ["sum"],
+          "fields": ["Adjusted Trips"],
+          "as": ["sum_Adjusted Trips"]
+        },
+        {
+          "type": "stack",
+          "groupby": ["State"],
+          "field": "sum_Adjusted Trips",
+          "sort": {"field": ["Reason"], "order": ["descending"]},
+          "as": ["sum_Adjusted Trips_start", "sum_Adjusted Trips_end"],
+          "offset": "zero"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"sum_Adjusted Trips\"]) && isFinite(+datum[\"sum_Adjusted Trips\"])"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "rect",
+      "style": ["bar"],
+      "from": {"data": "data_0"},
+      "encode": {
+        "update": {
+          "fill": {"scale": "color", "field": "Reason"},
+          "tooltip": {
+            "signal": "{\"State\": isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"], \"Reason\": isValid(datum[\"Reason\"]) ? datum[\"Reason\"] : \"\"+datum[\"Reason\"], \"Number of Visitors (Millions)\": format(datum[\"Adjusted Trips\"], \"\")}"
+          },
+          "ariaRoleDescription": {"value": "bar"},
+          "description": {
+            "signal": "\"State: \" + (isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"]) + \"; Number of Visitors(: \" + (format(datum[\"sum_Adjusted Trips\"], \"\")) + \"; Reason: \" + (isValid(datum[\"Reason\"]) ? datum[\"Reason\"] : \"\"+datum[\"Reason\"]) + \"; Number of Visitors (Millions): \" + (format(datum[\"Adjusted Trips\"], \"\"))"
+          },
+          "x": {"scale": "x", "field": "State"},
+          "width": {"signal": "max(0.25, bandwidth('x'))"},
+          "y": {"scale": "y", "field": "sum_Adjusted Trips_end"},
+          "y2": {"scale": "y", "field": "sum_Adjusted Trips_start"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "domain": {
+        "data": "source_0",
+        "field": "State",
+        "sort": {"op": "sum", "field": "Adjusted Trips", "order": "descending"}
+      },
+      "range": [0, {"signal": "width"}],
+      "paddingInner": 0.1,
+      "paddingOuter": 0.05
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "domain": {
+        "data": "data_0",
+        "fields": ["sum_Adjusted Trips_start", "sum_Adjusted Trips_end"]
+      },
+      "range": [{"signal": "height"}, 0],
+      "nice": true,
+      "zero": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "data_0", "field": "Reason", "sort": true},
+      "range": ["#44AA99", "#88CCEE", "#DDCC77", "#9486D8"],
+      "interpolate": "hcl"
+    }
+  ],
+  "axes": [
+    {
+      "scale": "x",
+      "orient": "bottom",
+      "grid": false,
+      "title": "State",
+      "labelAlign": "right",
+      "labelAngle": 270,
+      "labelBaseline": "middle",
+      "zindex": 0
+    },
+    {
+      "scale": "y",
+      "orient": "left",
+      "grid": false,
+      "title": "Number of Visitors (Millions)",
+      "labelOverlap": true,
+      "tickCount": {"signal": "ceil(height/40)"},
+      "zindex": 0
+    }
+  ],
+  "legends": [
+    {"title": "Reason for Visit", "fill": "color", "symbolType": "square"}
+  ],
+  "config": {"style": {"bar": {"tooltip": true}}}
+}
