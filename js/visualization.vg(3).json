@@ -1,0 +1,114 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "background": "white",
+  "padding": 5,
+  "width": 200,
+  "height": 300,
+  "title": {
+    "text": "Spending by Visit Reason in Australian States",
+    "frame": "group"
+  },
+  "style": "view",
+  "encode": {"update": {"stroke": {"value": "transparent"}}},
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/data/category_spending.csv",
+      "format": {"type": "csv", "delimiter": ","},
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["Reason", "State"],
+          "ops": ["sum"],
+          "fields": ["Spending"],
+          "as": ["Total Spending"]
+        },
+        {"type": "formula", "expr": "datum.State", "as": "State"},
+        {
+          "type": "filter",
+          "expr": "datum.State == stateFilter || stateFilter == 'ALL'"
+        },
+        {
+          "type": "stack",
+          "groupby": [],
+          "field": "Total Spending",
+          "sort": {"field": ["Reason"], "order": ["ascending"]},
+          "as": ["Total Spending_start", "Total Spending_end"],
+          "offset": "zero"
+        },
+        {
+          "type": "filter",
+          "expr": "isValid(datum[\"Total Spending\"]) && isFinite(+datum[\"Total Spending\"])"
+        }
+      ]
+    }
+  ],
+  "signals": [
+    {
+      "name": "stateFilter",
+      "value": "ALL",
+      "bind": {
+        "input": "select",
+        "options": [
+          "ALL",
+          "New South Wales",
+          "Victoria",
+          "Queensland",
+          "South Australia",
+          "Western Australia",
+          "Tasmania",
+          "Northern Territory",
+          "Australian Capital Territory"
+        ],
+        "name": "Select State: "
+      }
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "arc",
+      "style": ["arc"],
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "innerRadius": {"value": 50},
+          "fill": {"scale": "color", "field": "Reason"},
+          "tooltip": {
+            "signal": "{\"Reason\": isValid(datum[\"Reason\"]) ? datum[\"Reason\"] : \"\"+datum[\"Reason\"], \"Total Spending ($M)\": format(datum[\"Total Spending\"], \",.2f\"), \"State\": isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"]}"
+          },
+          "description": {
+            "signal": "\"Total Spending: \" + (format(datum[\"Total Spending\"], \"\")) + \"; Reason: \" + (isValid(datum[\"Reason\"]) ? datum[\"Reason\"] : \"\"+datum[\"Reason\"]) + \"; Total Spending ($M): \" + (format(datum[\"Total Spending\"], \",.2f\")) + \"; State: \" + (isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"])"
+          },
+          "x": {"signal": "width", "mult": 0.5},
+          "y": {"signal": "height", "mult": 0.5},
+          "outerRadius": {"signal": "min(width,height)/2"},
+          "startAngle": {"scale": "theta", "field": "Total Spending_end"},
+          "endAngle": {"scale": "theta", "field": "Total Spending_start"}
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "theta",
+      "type": "linear",
+      "domain": {
+        "data": "source_0",
+        "fields": ["Total Spending_start", "Total Spending_end"]
+      },
+      "range": [0, 6.283185307179586],
+      "zero": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "source_0", "field": "Reason", "sort": true},
+      "range": ["#44AA99", "#88CCEE", "#DDCC77", "#9486D8"]
+    }
+  ],
+  "legends": [
+    {"title": "Reason for Visit", "fill": "color", "symbolType": "circle"}
+  ],
+  "config": {}
+}
