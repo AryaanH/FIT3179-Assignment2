@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Average Visitor Spending($) for each Australian State (2023 and 2024)",
-  "width": 700,
-  "height": 500,
+  "width": 400,
+  "height": 300,
   "projection": {
     "type": "equirectangular"
   },
@@ -116,7 +116,7 @@
         "type": "text",
         "fontSize": 9,
         "fontWeight": "lighter",
-        "dy": -7,
+        "dy": -3,
         "dx": -6,
         "color": "black"
       },

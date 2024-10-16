@@ -1,306 +1,214 @@
 {
-  "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "background": "white",
-  "padding": 5,
-  "width": 700,
-  "height": 500,
-  "title": {
-    "text": "Number of Visitors(Millions) for each State",
-    "frame": "group"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Number of Visitors(Millions) for each State",
+  "width": 400,
+  "height": 300,
+  "projection": {
+    "type": "equirectangular"
   },
-  "style": "view",
-  "data": [
-    {
-      "name": "source_1",
-      "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/js/ne_10m_admin_1_states_provinces.json",
-      "format": {
-        "type": "topojson",
-        "feature": "ne_10m_admin_1_states_provinces"
-      }
-    },
-    {
-      "name": "source_0",
-      "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/data/state_wise_spending_data.csv",
-      "format": {"type": "csv", "delimiter": ","},
-      "transform": [
-        {
-          "type": "lookup",
-          "from": "source_1",
-          "key": "properties.name",
-          "fields": ["State"],
-          "as": ["countryLayout"]
-        },
-        {
-          "type": "formula",
-          "expr": "datum[\"countryLayout\"] && datum[\"countryLayout\"][\"properties\"] && datum[\"countryLayout\"][\"properties\"][\"longitude\"]",
-          "as": "countryLayout.properties.longitude"
-        },
-        {
-          "type": "formula",
-          "expr": "datum[\"countryLayout\"] && datum[\"countryLayout\"][\"properties\"] && datum[\"countryLayout\"][\"properties\"][\"latitude\"]",
-          "as": "countryLayout.properties.latitude"
-        },
-        {"type": "filter", "expr": "datum.Year == yearFilter"},
-        {
-          "type": "formula",
-          "expr": "format((datum.Trips*1000)/1000000, '.2f')",
-          "as": "Total visitors"
-        },
-        {
-          "type": "formula",
-          "expr": "upper(slice(datum.countryLayout.properties.abbrev, 0, [length(datum.countryLayout.properties.abbrev)-1]))",
-          "as": "Formatted Abbrev"
-        }
-      ]
-    },
-    {
-      "name": "data_0",
-      "source": "source_0",
-      "transform": [
-        {"type": "filter", "expr": "isValid(datum[\"countryLayout\"])"},
-        {
-          "type": "geojson",
-          "geojson": "countryLayout",
-          "signal": "layer_0_geojson_0"
-        },
-        {
-          "type": "filter",
-          "expr": "isValid(datum[\"Total visitors\"]) && isFinite(+datum[\"Total visitors\"])"
-        }
-      ]
-    },
-    {
-      "name": "data_1",
-      "source": "source_0",
-      "transform": [
-        {
-          "type": "geojson",
-          "fields": [
-            "countryLayout.properties.longitude",
-            "countryLayout.properties.latitude"
-          ],
-          "signal": "layer_1_geojson_0"
-        },
-        {
-          "type": "geopoint",
-          "projection": "projection",
-          "fields": [
-            "countryLayout.properties.longitude",
-            "countryLayout.properties.latitude"
-          ],
-          "as": ["layer_1_x", "layer_1_y"]
-        }
-      ]
-    },
-    {
-      "name": "data_2",
-      "source": "source_0",
-      "transform": [
-        {
-          "type": "filter",
-          "expr": "datum.State == 'Tasmania' && datum.Year == 2024"
-        },
-        {
-          "type": "geojson",
-          "fields": [
-            "countryLayout.properties.longitude",
-            "countryLayout.properties.latitude"
-          ],
-          "signal": "layer_2_geojson_0"
-        },
-        {
-          "type": "geopoint",
-          "projection": "projection",
-          "fields": [
-            "countryLayout.properties.longitude",
-            "countryLayout.properties.latitude"
-          ],
-          "as": ["layer_2_x", "layer_2_y"]
-        }
-      ]
-    },
-    {
-      "name": "data_3",
-      "source": "source_0",
-      "transform": [
-        {
-          "type": "filter",
-          "expr": "datum.State == 'Victoria' && datum.Year == 2024"
-        },
-        {
-          "type": "geojson",
-          "fields": [
-            "countryLayout.properties.longitude",
-            "countryLayout.properties.latitude"
-          ],
-          "signal": "layer_3_geojson_0"
-        },
-        {
-          "type": "geopoint",
-          "projection": "projection",
-          "fields": [
-            "countryLayout.properties.longitude",
-            "countryLayout.properties.latitude"
-          ],
-          "as": ["layer_3_x", "layer_3_y"]
-        }
-      ]
+  "data": {
+    "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/data/state_wise_spending_data.csv",
+    "format": {
+      "type": "csv"
     }
-  ],
-  "projections": [
-    {
-      "name": "projection",
-      "size": {"signal": "[width, height]"},
-      "fit": {
-        "signal": "[layer_0_geojson_0, layer_1_geojson_0, layer_2_geojson_0, layer_3_geojson_0]"
-      },
-      "type": "equirectangular"
-    }
-  ],
-  "signals": [
+  },
+  "params": [
     {
       "name": "yearFilter",
       "value": 2024,
       "bind": {
         "input": "radio",
-        "options": [2023, 2024],
+        "options": [
+          2023,
+          2024
+        ],
         "name": "Select Year: "
       }
     }
   ],
-  "marks": [
+  "transform": [
     {
-      "name": "layer_0_marks",
-      "type": "shape",
-      "style": ["geoshape"],
-      "from": {"data": "data_0"},
-      "encode": {
-        "update": {
-          "stroke": {"value": "white"},
-          "strokeWidth": {"value": 1},
-          "fill": {"scale": "color", "field": "Total visitors"},
-          "tooltip": {
-            "signal": "{\"State\": isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"], \"Total Visitors (in Millions)\": format(datum[\"Total visitors\"], \"\"), \"Year\": isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"]}"
-          },
-          "ariaRoleDescription": {"value": "geoshape"},
-          "description": {
-            "signal": "\"Total visitors: \" + (format(datum[\"Total visitors\"], \"\")) + \"; countryLayout: \" + (isValid(datum[\"countryLayout\"]) ? datum[\"countryLayout\"] : \"\"+datum[\"countryLayout\"]) + \"; State: \" + (isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"]) + \"; Total Visitors (in Millions): \" + (format(datum[\"Total visitors\"], \"\")) + \"; Year: \" + (isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"])"
+      "lookup": "State",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/js/ne_10m_admin_1_states_provinces.json",
+          "format": {
+            "type": "topojson",
+            "feature": "ne_10m_admin_1_states_provinces"
           }
+        },
+        "key": "properties.name"
+      },
+      "as": "countryLayout"
+    },
+    {
+      "filter": "datum.Year == yearFilter"
+    },
+    {
+      "calculate": "format((datum.Trips*1000)/1000000, '.2f')",
+      "as": "Total visitors"
+    },
+    {
+      "calculate": "upper(slice(datum.countryLayout.properties.abbrev, 0, [length(datum.countryLayout.properties.abbrev)-1]))",
+      "as": "Formatted Abbrev"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "shape": {
+          "field": "countryLayout",
+          "type": "geojson"
+        },
+        "color": {
+          "field": "Total visitors",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "range": [
+              "#f0f9e8",
+              "#ccebc5",
+              "#a8ddb5",
+              "#7bccc4",
+              "#4eb3d3",
+              "#2b8cbe",
+              "#08589e"
+            ],
+            "domain": [
+              3,
+              6,
+              12,
+              20,
+              28,
+              35
+            ]
+          },
+          "legend": {
+            "title": "Number of Visitors (Millions)"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "State",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "Total visitors",
+            "type": "quantitative",
+            "title": "Total Visitors (in Millions)"
+          },
+          {
+            "field": "Year",
+            "type": "ordinal",
+            "title": "Year"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 9,
+        "fontWeight": "lighter",
+        "dy": -7,
+        "dx": -6,
+        "color": "black"
+      },
+      "encoding": {
+        "text": {
+          "field": "Formatted Abbrev"
+        },
+        "longitude": {
+          "field": "countryLayout.properties.longitude"
+        },
+        "latitude": {
+          "field": "countryLayout.properties.latitude"
         }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "dx": 100,
+        "dy": -5,
+        "color": "#282f38",
+        "fontStyle": "italic"
       },
       "transform": [
         {
-          "type": "geoshape",
-          "projection": "projection",
-          "field": "datum[\"countryLayout\"]"
+          "filter": "datum.State == 'Tasmania' && datum.Year == 2024"
         }
-      ]
-    },
-    {
-      "name": "layer_1_marks",
-      "type": "text",
-      "style": ["text"],
-      "from": {"data": "data_1"},
-      "encode": {
-        "update": {
-          "dx": {"value": -6},
-          "dy": {"value": -7},
-          "fontSize": {"value": 9},
-          "fontWeight": {"value": "lighter"},
-          "fill": {"value": "black"},
-          "description": {
-            "signal": "\"countryLayout.properties.longitude: \" + (format(datum[\"countryLayout.properties.longitude\"], \"\")) + \"; countryLayout.properties.latitude: \" + (format(datum[\"countryLayout.properties.latitude\"], \"\")) + \"; Formatted Abbrev: \" + (isValid(datum[\"Formatted Abbrev\"]) ? datum[\"Formatted Abbrev\"] : \"\"+datum[\"Formatted Abbrev\"])"
-          },
-          "x": {"field": "layer_1_x"},
-          "y": {"field": "layer_1_y"},
-          "text": {
-            "signal": "isValid(datum[\"Formatted Abbrev\"]) ? datum[\"Formatted Abbrev\"] : \"\"+datum[\"Formatted Abbrev\"]"
-          },
-          "align": {"value": "center"},
-          "baseline": {"value": "middle"}
-        }
-      }
-    },
-    {
-      "name": "layer_2_marks",
-      "type": "text",
-      "style": ["text"],
-      "from": {"data": "data_2"},
-      "encode": {
-        "update": {
-          "dx": {"value": 100},
-          "dy": {"value": -5},
-          "fontSize": {"value": 10},
-          "fontWeight": {"value": "bold"},
-          "fontStyle": {"value": "italic"},
-          "fill": {"value": "#282f38"},
-          "tooltip": {
-            "signal": "{\"State\": isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"], \"Total Visitors (in Millions)\": format(datum[\"Total visitors\"], \"\")}"
-          },
-          "description": {
-            "signal": "\"countryLayout.properties.longitude: \" + (format(datum[\"countryLayout.properties.longitude\"], \"\")) + \"; countryLayout.properties.latitude: \" + (format(datum[\"countryLayout.properties.latitude\"], \"\")) + \"; State: \" + (isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"]) + \"; Total Visitors (in Millions): \" + (format(datum[\"Total visitors\"], \"\"))"
-          },
-          "x": {"field": "layer_2_x"},
-          "y": {"field": "layer_2_y"},
-          "text": {"value": "Significant increase from past Year"},
-          "align": {"value": "center"},
-          "baseline": {"value": "middle"}
-        }
-      }
-    },
-    {
-      "name": "layer_3_marks",
-      "type": "text",
-      "style": ["text"],
-      "from": {"data": "data_3"},
-      "encode": {
-        "update": {
-          "dx": {"value": 10},
-          "dy": {"value": 15},
-          "fontSize": {"value": 10},
-          "fontWeight": {"value": "bold"},
-          "fontStyle": {"value": "italic"},
-          "fill": {"value": "#282f38"},
-          "tooltip": {
-            "signal": "{\"State\": isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"], \"Total Visitors (in Millions)\": format(datum[\"Total visitors\"], \"\")}"
-          },
-          "description": {
-            "signal": "\"countryLayout.properties.longitude: \" + (format(datum[\"countryLayout.properties.longitude\"], \"\")) + \"; countryLayout.properties.latitude: \" + (format(datum[\"countryLayout.properties.latitude\"], \"\")) + \"; State: \" + (isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"]) + \"; Total Visitors (in Millions): \" + (format(datum[\"Total visitors\"], \"\"))"
-          },
-          "x": {"field": "layer_3_x"},
-          "y": {"field": "layer_3_y"},
-          "text": {"value": "Significant increase from past Year"},
-          "align": {"value": "center"},
-          "baseline": {"value": "middle"}
-        }
-      }
-    }
-  ],
-  "scales": [
-    {
-      "name": "color",
-      "type": "threshold",
-      "domain": [3, 6, 12, 20, 28, 35],
-      "range": [
-        "#f0f9e8",
-        "#ccebc5",
-        "#a8ddb5",
-        "#7bccc4",
-        "#4eb3d3",
-        "#2b8cbe",
-        "#08589e"
       ],
-      "interpolate": "hcl"
-    }
-  ],
-  "legends": [
+      "encoding": {
+        "longitude": {
+          "field": "countryLayout.properties.longitude"
+        },
+        "latitude": {
+          "field": "countryLayout.properties.latitude"
+        },
+        "text": {
+          "value": "Significant increase from past Year"
+        },
+        "tooltip": [
+          {
+            "field": "State",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "Total visitors",
+            "type": "quantitative",
+            "title": "Total Visitors (in Millions)"
+          }
+        ]
+      }
+    },
     {
-      "title": "Number of Visitors (Millions)",
-      "fill": "color",
-      "labelOverlap": "greedy",
-      "symbolType": "circle",
-      "encode": {"symbols": {"update": {"stroke": {"value": "white"}}}}
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "dx": 10,
+        "dy": 15,
+        "color": "#282f38",
+        "fontStyle": "italic"
+      },
+      "transform": [
+        {
+          "filter": "datum.State == 'Victoria' && datum.Year == 2024"
+        }
+      ],
+      "encoding": {
+        "longitude": {
+          "field": "countryLayout.properties.longitude"
+        },
+        "latitude": {
+          "field": "countryLayout.properties.latitude"
+        },
+        "text": {
+          "value": "Significant increase from past Year"
+        },
+        "tooltip": [
+          {
+            "field": "State",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "Total visitors",
+            "type": "quantitative",
+            "title": "Total Visitors (in Millions)"
+          }
+        ]
+      }
     }
-  ],
-  "config": {}
+  ]
 }

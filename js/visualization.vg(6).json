@@ -1,139 +1,82 @@
 {
-  "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "background": "white",
-  "padding": 5,
-  "width": 500,
-  "height": 300,
-  "title": {
-    "text": "Nights Spent ('000) by Visitors in Different Accommodations by State",
-    "frame": "group"
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Nights Spent ('000) by Visitors in Different Accommodations by State",
+  "width": 700,
+  "height": 500,
+  "data": {
+    "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/data/visualisation5.csv",
+    "format": {
+      "type": "csv"
+    }
   },
-  "style": "cell",
-  "data": [
+  "transform": [
     {
-      "name": "source_0",
-      "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/data/visualisation5.csv",
-      "format": {"type": "csv", "delimiter": ","},
-      "transform": [
-        {
-          "type": "formula",
-          "expr": "datum.Nights == 0 ? 'Data not available' : datum.Nights",
-          "as": "Formatted Nights"
-        },
-        {
-          "type": "aggregate",
-          "groupby": ["State", "Type", "Formatted Nights"],
-          "ops": ["sum"],
-          "fields": ["Nights"],
-          "as": ["sum_Nights"]
-        },
-        {
-          "type": "stack",
-          "groupby": ["State"],
-          "field": "sum_Nights",
-          "sort": {"field": ["Type"], "order": ["descending"]},
-          "as": ["sum_Nights_start", "sum_Nights_end"],
-          "offset": "zero"
-        },
-        {
-          "type": "filter",
-          "expr": "isValid(datum[\"sum_Nights\"]) && isFinite(+datum[\"sum_Nights\"])"
-        }
-      ]
+      "calculate": "datum.Nights == 0 ? 'Data not available' : datum.Nights",
+      "as": "Formatted Nights"
     }
   ],
-  "marks": [
-    {
-      "name": "marks",
-      "type": "rect",
-      "style": ["bar"],
-      "from": {"data": "source_0"},
-      "encode": {
-        "update": {
-          "fill": {"scale": "color", "field": "Type"},
-          "tooltip": {
-            "signal": "{\"State\": isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"], \"Accommodation Type\": isValid(datum[\"Type\"]) ? datum[\"Type\"] : \"\"+datum[\"Type\"], \"Nights Spent ('000)\": isValid(datum[\"Formatted Nights\"]) ? datum[\"Formatted Nights\"] : \"\"+datum[\"Formatted Nights\"]}"
-          },
-          "ariaRoleDescription": {"value": "bar"},
-          "description": {
-            "signal": "\"State: \" + (isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"]) + \"; Sum of Nights: \" + (format(datum[\"sum_Nights\"], \"\")) + \"; Type: \" + (isValid(datum[\"Type\"]) ? datum[\"Type\"] : \"\"+datum[\"Type\"]) + \"; Accommodation Type: \" + (isValid(datum[\"Type\"]) ? datum[\"Type\"] : \"\"+datum[\"Type\"]) + \"; Nights Spent ('000): \" + (isValid(datum[\"Formatted Nights\"]) ? datum[\"Formatted Nights\"] : \"\"+datum[\"Formatted Nights\"])"
-          },
-          "x": {"scale": "x", "field": "State"},
-          "width": {"signal": "max(0.25, bandwidth('x'))"},
-          "y": {"scale": "y", "field": "sum_Nights_end"},
-          "y2": {"scale": "y", "field": "sum_Nights_start"}
-        }
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "State",
+      "type": "nominal",
+      "axis": {
+        "title": "State"
       }
-    }
-  ],
-  "scales": [
-    {
-      "name": "x",
-      "type": "band",
-      "domain": {"data": "source_0", "field": "State", "sort": true},
-      "range": [0, {"signal": "width"}],
-      "paddingInner": 0.1,
-      "paddingOuter": 0.05
     },
-    {
-      "name": "y",
-      "type": "linear",
-      "domain": {
-        "data": "source_0",
-        "fields": ["sum_Nights_start", "sum_Nights_end"]
+    "y": {
+      "aggregate": "sum",
+      "field": "Nights",
+      "type": "quantitative",
+      "axis": {
+        "title": "Nights Spent ('000)"
+      }
+    },
+    "color": {
+      "field": "Type",
+      "type": "nominal",
+      "legend": {
+        "title": "Accommodation Type",
+        "offset": 0
       },
-      "range": [{"signal": "height"}, 0],
-      "nice": true,
-      "zero": true
+      "scale": {
+        "range": [
+          "#594AA4",
+          "#117733",
+          "#44AA99",
+          "#88CCEE",
+          "#DDCC77",
+          "#CC6677",
+          "#AA4499",
+          "#882255",
+          "#6D716E"
+        ]
+      }
     },
-    {
-      "name": "color",
-      "type": "ordinal",
-      "domain": {"data": "source_0", "field": "Type", "sort": true},
-      "range": [
-        "#594AA4",
-        "#117733",
-        "#44AA99",
-        "#88CCEE",
-        "#DDCC77",
-        "#CC6677",
-        "#AA4499",
-        "#882255",
-        "#6D716E"
-      ]
-    }
-  ],
-  "axes": [
-    {
-      "scale": "x",
-      "orient": "bottom",
-      "grid": false,
-      "title": "State",
-      "labelAlign": "right",
-      "labelAngle": 270,
-      "labelBaseline": "middle",
-      "zindex": 0
-    },
-    {
-      "scale": "y",
-      "orient": "left",
-      "grid": false,
-      "title": "Nights Spent ('000)",
-      "labelOverlap": true,
-      "tickCount": {"signal": "ceil(height/40)"},
-      "zindex": 0
-    }
-  ],
-  "legends": [
-    {
-      "offset": 0,
-      "title": "Accommodation Type",
-      "fill": "color",
-      "symbolType": "square"
-    }
-  ],
+    "tooltip": [
+      {
+        "field": "State",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "Type",
+        "type": "nominal",
+        "title": "Accommodation Type"
+      },
+      {
+        "field": "Formatted Nights",
+        "type": "nominal",
+        "title": "Nights Spent ('000)"
+      }
+    ]
+  },
   "config": {
-    "axis": {"grid": false},
-    "style": {"cell": {"stroke": "transparent"}}
+    "view": {
+      "stroke": "transparent"
+    },
+    "axis": {
+      "grid": false
+    }
   }
 }
