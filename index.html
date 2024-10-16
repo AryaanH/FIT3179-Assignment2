@@ -11,6 +11,7 @@
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
+            color: #333;
         }
 
         .container {
@@ -19,27 +20,44 @@
             padding: 20px;
         }
 
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 10px 0 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+
         .section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             margin-bottom: 40px;
         }
 
-        .section h2 {
-            color: #333;
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
         }
 
-        .section p {
-            max-width: 800px;
-            margin: 10px 0 20px;
-            color: #555;
+        .chart,
+        .text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .chart {
+            max-width: 650px;
+        }
+
+        .text {
+            max-width: 450px;
         }
 
         .visualization {
             width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
             border: 1px solid #ddd;
             padding: 10px;
             background-color: #fff;
@@ -54,53 +72,109 @@
 <body>
 
     <div class="container">
-        <!-- Section 1 -->
+        <!-- Section 1: Number of Visitors per State and Visitor Reasons -->
         <div class="section">
-            <h2>Tourist Spending by Category</h2>
-            <p>This chart shows the spending patterns of domestic tourists in Australia across various categories. From
-                accommodation to transportation, you can see where tourists allocate their budgets.</p>
-            <div id="visualization1" class="visualization"></div>
+            <h2>1. Number of Visitors by State</h2>
+            <div class="row">
+                <div class="chart">
+                    <div id="visualization1" class="visualization"></div>
+                </div>
+                <div class="text">
+                    <p>This map provides an overview of the number of visitors (in millions) for each state in
+                        Australia, segmented by year. This information helps in understanding the distribution of
+                        tourist footfall across the country. You can toggle between 2023 and 2024 to observe any changes
+                        in visitor numbers.</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Section 2 -->
+        <!-- Section 2: Visitor Reasons by State -->
         <div class="section">
-            <h2>Number of Visitors by State</h2>
-            <p>This map visualization shows the number of visitors (in millions) for each state in Australia for the
-                selected year. Use the radio buttons to toggle between 2023 and 2024 data.</p>
-            <div id="visualization2" class="visualization"></div>
+            <h2>2. Visitor Reasons by State</h2>
+            <div class="row">
+                <div class="chart">
+                    <div id="visualization2" class="visualization"></div>
+                </div>
+                <div class="text">
+                    <p>This bar chart categorizes the reasons for visits to different Australian states, highlighting
+                        the purposes for travel such as holidays, business, and visiting friends or relatives.
+                        Understanding these reasons can help tailor tourism campaigns and initiatives to attract more
+                        visitors in specific segments.</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Section 3 -->
+        <!-- Section 3: Nights Spent by Accommodation Type -->
         <div class="section">
-            <h2>Nights Spent by Accommodation Type</h2>
-            <p>This stacked bar chart illustrates the total nights spent by tourists in various types of accommodation
-                across each Australian state, allowing a comparison of accommodation preferences.</p>
-            <div id="visualization3" class="visualization"></div>
+            <h2>3. Nights Spent in Different Accommodations by State</h2>
+            <div class="row">
+                <div class="chart">
+                    <div id="visualization6" class="visualization"></div>
+                </div>
+                <div class="text">
+                    <p>This chart shows how long visitors stay in different types of accommodations in each state, such
+                        as hotels, motels, and private properties. This data offers insights into accommodation
+                        preferences, potentially aiding accommodation providers and policymakers in planning and
+                        promoting various lodging options.</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Section 4 -->
+        <!-- Section 4: Average Visitor Spending by State -->
         <div class="section">
-            <h2>Spending in Different Australian States per Visitor</h2>
-            <p>Explore how much each state receives from tourist spending per visitor. This metric provides insight into
-                the spending patterns of visitors and how they vary by state.</p>
-            <div id="visualization4" class="visualization"></div>
+            <h2>4. Average Visitor Spending by State</h2>
+            <div class="row">
+                <div class="chart">
+                    <div id="visualization4" class="visualization"></div>
+                </div>
+                <div class="text">
+                    <p>This map visualizes the average amount spent by visitors in each state. By showing spending per
+                        visitor, it helps identify which states benefit most economically from each tourist. The data
+                        also indicates how spending varies by state, reflecting differences in cost and attractions.</p>
+                </div>
+            </div>
         </div>
 
+        <!-- Section 5: Spending by Visit Reason -->
+        <div class="section">
+            <h2>5. Spending by Visit Reason</h2>
+            <div class="row">
+                <div class="chart">
+                    <div id="visualization3" class="visualization"></div>
+                </div>
+                <div class="text">
+                    <p>This pie chart breaks down spending by the purpose of visit, giving an overview of how much
+                        tourists spend on holidays, business trips, or visiting friends and family. Understanding these
+                        categories helps in assessing which segments contribute most to the tourism economy.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Spending by Category -->
+        <div class="section">
+            <h2>6. Tourist Spending by Category</h2>
+            <div class="row">
+                <div class="chart">
+                    <div id="visualization5" class="visualization"></div>
+                </div>
+                <div class="text">
+                    <p>This bar chart provides insights into the specific spending categories for domestic tourists,
+                        ranging from accommodation to transportation and entertainment. This data helps in understanding
+                        where the most money is spent, enabling businesses and policymakers to prioritize high-impact
+                        areas.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript">
-        // Load the first visualization
-        vegaEmbed('#visualization1', 'js/visualization.vg(1).json').catch(console.error);
-
-        // Load the second visualization
+        // Load each visualization into its corresponding div
+        vegaEmbed('#visualization1', 'js/visualization.vg(5).json').catch(console.error);
         vegaEmbed('#visualization2', 'js/visualization.vg(2).json').catch(console.error);
-
-        // Load the third visualization
         vegaEmbed('#visualization3', 'js/visualization.vg(3).json').catch(console.error);
-
-        // Load the fourth visualization
-        vegaEmbed('#visualization4', 'js/visualization.vg(4).json').catch(console.error);
-
+        vegaEmbed('#visualization4', 'js/visualization.vg(1).json').catch(console.error);
+        vegaEmbed('#visualization5', 'js/visualization.vg(4).json').catch(console.error);
+        vegaEmbed('#visualization6', 'js/visualization.vg(6).json').catch(console.error);
     </script>
 
 </body>
