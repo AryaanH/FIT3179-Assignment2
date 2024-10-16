@@ -1,196 +1,136 @@
 {
-  "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "background": "white",
-  "padding": 5,
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Average Visitor Spending($) for each Australian State (2023 and 2024)",
   "width": 700,
   "height": 500,
-  "title": {
-    "text": "Average Visitor Spending($) for each Australian State (2023 and 2024)",
-    "frame": "group"
+  "projection": {
+    "type": "equirectangular"
   },
-  "style": "view",
-  "data": [
-    {
-      "name": "source_1",
-      "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/js/ne_10m_admin_1_states_provinces.json",
-      "format": {
-        "type": "topojson",
-        "feature": "ne_10m_admin_1_states_provinces"
-      }
-    },
-    {
-      "name": "source_0",
-      "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/data/state_wise_spending_data.csv",
-      "format": {"type": "csv", "delimiter": ","},
-      "transform": [
-        {
-          "type": "lookup",
-          "from": "source_1",
-          "key": "properties.name",
-          "fields": ["State"],
-          "as": ["countryLayout"]
-        },
-        {
-          "type": "formula",
-          "expr": "datum[\"countryLayout\"] && datum[\"countryLayout\"][\"properties\"] && datum[\"countryLayout\"][\"properties\"][\"longitude\"]",
-          "as": "countryLayout.properties.longitude"
-        },
-        {
-          "type": "formula",
-          "expr": "datum[\"countryLayout\"] && datum[\"countryLayout\"][\"properties\"] && datum[\"countryLayout\"][\"properties\"][\"latitude\"]",
-          "as": "countryLayout.properties.latitude"
-        },
-        {"type": "filter", "expr": "datum.Year == yearFilter"},
-        {
-          "type": "formula",
-          "expr": "round((datum.Spending/datum.Trips) * 1000)",
-          "as": "Spending"
-        },
-        {
-          "type": "formula",
-          "expr": "upper(slice(datum.countryLayout.properties.abbrev, 0, [length(datum.countryLayout.properties.abbrev)-1]))",
-          "as": "Formatted Abbrev"
-        }
-      ]
-    },
-    {
-      "name": "data_0",
-      "source": "source_0",
-      "transform": [
-        {"type": "filter", "expr": "isValid(datum[\"countryLayout\"])"},
-        {
-          "type": "geojson",
-          "geojson": "countryLayout",
-          "signal": "layer_0_geojson_0"
-        },
-        {
-          "type": "filter",
-          "expr": "isValid(datum[\"Spending\"]) && isFinite(+datum[\"Spending\"])"
-        }
-      ]
-    },
-    {
-      "name": "data_1",
-      "source": "source_0",
-      "transform": [
-        {
-          "type": "geojson",
-          "fields": [
-            "countryLayout.properties.longitude",
-            "countryLayout.properties.latitude"
-          ],
-          "signal": "layer_1_geojson_0"
-        },
-        {
-          "type": "geopoint",
-          "projection": "projection",
-          "fields": [
-            "countryLayout.properties.longitude",
-            "countryLayout.properties.latitude"
-          ],
-          "as": ["layer_1_x", "layer_1_y"]
-        }
-      ]
+  "data": {
+    "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/data/state_wise_spending_data.csv",
+    "format": {
+      "type": "csv"
     }
-  ],
-  "projections": [
-    {
-      "name": "projection",
-      "size": {"signal": "[width, height]"},
-      "fit": {"signal": "[layer_0_geojson_0, layer_1_geojson_0]"},
-      "type": "equirectangular"
-    }
-  ],
-  "signals": [
+  },
+  "params": [
     {
       "name": "yearFilter",
       "value": 2024,
       "bind": {
         "input": "radio",
-        "options": [2023, 2024],
+        "options": [
+          2023,
+          2024
+        ],
         "name": "Select Year: "
       }
     }
   ],
-  "marks": [
+  "transform": [
     {
-      "name": "layer_0_marks",
-      "type": "shape",
-      "style": ["geoshape"],
-      "from": {"data": "data_0"},
-      "encode": {
-        "update": {
-          "stroke": {"value": "white"},
-          "strokeWidth": {"value": 1},
-          "fill": {"scale": "color", "field": "Spending"},
-          "tooltip": {
-            "signal": "{\"State\": isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"], \"Avg. Spending per Visitor($)\": format(datum[\"Spending\"], \"\"), \"Year\": isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"]}"
-          },
-          "ariaRoleDescription": {"value": "geoshape"},
-          "description": {
-            "signal": "\"Spending: \" + (format(datum[\"Spending\"], \"\")) + \"; countryLayout: \" + (isValid(datum[\"countryLayout\"]) ? datum[\"countryLayout\"] : \"\"+datum[\"countryLayout\"]) + \"; State: \" + (isValid(datum[\"State\"]) ? datum[\"State\"] : \"\"+datum[\"State\"]) + \"; Avg. Spending per Visitor($): \" + (format(datum[\"Spending\"], \"\")) + \"; Year: \" + (isValid(datum[\"Year\"]) ? datum[\"Year\"] : \"\"+datum[\"Year\"])"
+      "lookup": "State",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/js/ne_10m_admin_1_states_provinces.json",
+          "format": {
+            "type": "topojson",
+            "feature": "ne_10m_admin_1_states_provinces"
           }
-        }
+        },
+        "key": "properties.name"
       },
-      "transform": [
-        {
-          "type": "geoshape",
-          "projection": "projection",
-          "field": "datum[\"countryLayout\"]"
-        }
-      ]
+      "as": "countryLayout"
     },
     {
-      "name": "layer_1_marks",
-      "type": "text",
-      "style": ["text"],
-      "from": {"data": "data_1"},
-      "encode": {
-        "update": {
-          "dx": {"value": -6},
-          "dy": {"value": -7},
-          "fontSize": {"value": 9},
-          "fontWeight": {"value": "lighter"},
-          "fill": {"value": "black"},
-          "description": {
-            "signal": "\"countryLayout.properties.longitude: \" + (format(datum[\"countryLayout.properties.longitude\"], \"\")) + \"; countryLayout.properties.latitude: \" + (format(datum[\"countryLayout.properties.latitude\"], \"\")) + \"; Formatted Abbrev: \" + (isValid(datum[\"Formatted Abbrev\"]) ? datum[\"Formatted Abbrev\"] : \"\"+datum[\"Formatted Abbrev\"])"
+      "filter": "datum.Year == yearFilter"
+    },
+    {
+      "calculate": "round((datum.Spending/datum.Trips) * 1000)",
+      "as": "Spending per person"
+    },
+    {
+      "calculate": "upper(slice(datum.countryLayout.properties.abbrev, 0, [length(datum.countryLayout.properties.abbrev)-1]))",
+      "as": "Formatted Abbrev"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "shape": {
+          "field": "countryLayout",
+          "type": "geojson"
+        },
+        "color": {
+          "field": "Spending per person",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "range": [
+              "#f0f9e8",
+              "#ccebc5",
+              "#a8ddb5",
+              "#7bccc4",
+              "#4eb3d3",
+              "#2b8cbe",
+              "#08589e"
+            ],
+            "domain": [
+              800,
+              900,
+              1000,
+              1100,
+              1200,
+              1800
+            ]
           },
-          "x": {"field": "layer_1_x"},
-          "y": {"field": "layer_1_y"},
-          "text": {
-            "signal": "isValid(datum[\"Formatted Abbrev\"]) ? datum[\"Formatted Abbrev\"] : \"\"+datum[\"Formatted Abbrev\"]"
+          "legend": {
+            "title": "Spending ($)"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "State",
+            "type": "nominal",
+            "title": "State"
           },
-          "align": {"value": "center"},
-          "baseline": {"value": "middle"}
+          {
+            "field": "Spending per person",
+            "type": "quantitative",
+            "title": "Avg. Spending per Visitor($)"
+          },
+          {
+            "field": "Year",
+            "type": "ordinal",
+            "title": "Year"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 9,
+        "fontWeight": "lighter",
+        "dy": -7,
+        "dx": -6,
+        "color": "black"
+      },
+      "encoding": {
+        "text": {
+          "field": "Formatted Abbrev"
+        },
+        "longitude": {
+          "field": "countryLayout.properties.longitude"
+        },
+        "latitude": {
+          "field": "countryLayout.properties.latitude"
         }
       }
     }
-  ],
-  "scales": [
-    {
-      "name": "color",
-      "type": "threshold",
-      "domain": [800, 900, 1000, 1100, 1200, 1800],
-      "range": [
-        "#f0f9e8",
-        "#ccebc5",
-        "#a8ddb5",
-        "#7bccc4",
-        "#4eb3d3",
-        "#2b8cbe",
-        "#08589e"
-      ],
-      "interpolate": "hcl"
-    }
-  ],
-  "legends": [
-    {
-      "fill": "color",
-      "labelOverlap": "greedy",
-      "symbolType": "circle",
-      "title": "Spending",
-      "encode": {"symbols": {"update": {"stroke": {"value": "white"}}}}
-    }
-  ],
-  "config": {}
+  ]
 }
