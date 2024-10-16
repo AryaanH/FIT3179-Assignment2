@@ -1,89 +1,89 @@
 ﻿State,Type,Nights
-NSW,Hotel/Resort/Motel/Motor inn,32311
-NSW,Guest house or bed & breakfast,629
-NSW,Rented accommodation,10408
-NSW,Caravan park or commercial camping ground,12471
-NSW,Backpacker or hostel,0
-NSW,Other commercial accommodation,0
-NSW,Own property,5718
-NSW,Friends or relatives property,43562
-NSW,Caravan or camping - non commercial,6225
-NSW,Other private accommodation,2114
-NSW,Other accommodation,2352
-VIC,Hotel/Resort/Motel/Motor inn,22523
-VIC,Guest house or bed & breakfast,459
-VIC,Rented accommodation,6907
-VIC,Caravan park or commercial camping ground,7052
-VIC,Backpacker or hostel,0
-VIC,Other commercial accommodation,0
-VIC,Own property,4864
-VIC,Friends or relatives property,30692
-VIC,Caravan or camping - non commercial,4087
-VIC,Other private accommodation,1557
-VIC,Other accommodation,1414
-QLD,Hotel/Resort/Motel/Motor inn,31714
-QLD,Guest house or bed & breakfast,0
-QLD,Rented accommodation,10413
-QLD,Caravan park or commercial camping ground,6941
-QLD,Backpacker or hostel,0
-QLD,Other commercial accommodation,0
-QLD,Own property,2604
-QLD,Friends or relatives property,31241
-QLD,Caravan or camping - non commercial,6255
-QLD,Other private accommodation,1646
-QLD,Other accommodation,5395
-SA,Hotel/Resort/Motel/Motor inn,6359
-SA,Guest house or bed & breakfast,0
-SA,Rented accommodation,2049
-SA,Caravan park or commercial camping ground,2974
-SA,Backpacker or hostel,0
-SA,Other commercial accommodation,0
-SA,Own property,1511
-SA,Friends or relatives property,9259
-SA,Caravan or camping - non commercial,1253
-SA,Other private accommodation,0
-SA,Other accommodation,1758
-WA,Hotel/Resort/Motel/Motor inn,11063
-WA,Guest house or bed & breakfast,0
-WA,Rented accommodation,3661
-WA,Caravan park or commercial camping ground,4385
-WA,Backpacker or hostel,0
-WA,Other commercial accommodation,0
-WA,Own property,1756
-WA,Friends or relatives property,11997
-WA,Caravan or camping - non commercial,2876
-WA,Other private accommodation,1604
-WA,Other accommodation,10370
-TAS,Hotel/Resort/Motel/Motor inn,4164
-TAS,Guest house or bed & breakfast,0
-TAS,Rented accommodation,1551
-TAS,Caravan park or commercial camping ground,1038
-TAS,Backpacker or hostel,0
-TAS,Other commercial accommodation,0
-TAS,Own property,0
-TAS,Friends or relatives property,3366
-TAS,Caravan or camping - non commercial,784
-TAS,Other private accommodation,0
-TAS,Other accommodation,0
-NT,Hotel/Resort/Motel/Motor inn,2990
-NT,Guest house or bed & breakfast,0
-NT,Rented accommodation,0
-NT,Caravan park or commercial camping ground,0
-NT,Backpacker or hostel,0
-NT,Other commercial accommodation,0
-NT,Own property,0
-NT,Friends or relatives property,1130
-NT,Caravan or camping - non commercial,0
-NT,Other private accommodation,0
-NT,Other accommodation,0
-ACT,Hotel/Resort/Motel/Motor inn,3218
-ACT,Guest house or bed & breakfast,0
-ACT,Rented accommodation,0
-ACT,Caravan park or commercial camping ground,0
-ACT,Backpacker or hostel,0
-ACT,Other commercial accommodation,0
-ACT,Own property,0
-ACT,Friends or relatives property,3513
-ACT,Caravan or camping - non commercial,0
-ACT,Other private accommodation,0
-ACT,Other accommodation,0
+New South Wales,Hotel/Resort/Motel/Motor inn,32311
+New South Wales,Guest house or bed & breakfast,629
+New South Wales,Rented accommodation,10408
+New South Wales,Caravan park or commercial camping ground,12471
+New South Wales,Backpacker or hostel,0
+New South Wales,Other commercial accommodation,0
+New South Wales,Own property,5718
+New South Wales,Friends or relatives property,43562
+New South Wales,Caravan or camping - non commercial,6225
+New South Wales,Other private accommodation,2114
+New South Wales,Other accommodation,2352
+Victoria,Hotel/Resort/Motel/Motor inn,22523
+Victoria,Guest house or bed & breakfast,459
+Victoria,Rented accommodation,6907
+Victoria,Caravan park or commercial camping ground,7052
+Victoria,Backpacker or hostel,0
+Victoria,Other commercial accommodation,0
+Victoria,Own property,4864
+Victoria,Friends or relatives property,30692
+Victoria,Caravan or camping - non commercial,4087
+Victoria,Other private accommodation,1557
+Victoria,Other accommodation,1414
+Queensland,Hotel/Resort/Motel/Motor inn,31714
+Queensland,Guest house or bed & breakfast,0
+Queensland,Rented accommodation,10413
+Queensland,Caravan park or commercial camping ground,6941
+Queensland,Backpacker or hostel,0
+Queensland,Other commercial accommodation,0
+Queensland,Own property,2604
+Queensland,Friends or relatives property,31241
+Queensland,Caravan or camping - non commercial,6255
+Queensland,Other private accommodation,1646
+Queensland,Other accommodation,5395
+South Australia,Hotel/Resort/Motel/Motor inn,6359
+South Australia,Guest house or bed & breakfast,0
+South Australia,Rented accommodation,2049
+South Australia,Caravan park or commercial camping ground,2974
+South Australia,Backpacker or hostel,0
+South Australia,Other commercial accommodation,0
+South Australia,Own property,1511
+South Australia,Friends or relatives property,9259
+South Australia,Caravan or camping - non commercial,1253
+South Australia,Other private accommodation,0
+South Australia,Other accommodation,1758
+Western Australia,Hotel/Resort/Motel/Motor inn,11063
+Western Australia,Guest house or bed & breakfast,0
+Western Australia,Rented accommodation,3661
+Western Australia,Caravan park or commercial camping ground,4385
+Western Australia,Backpacker or hostel,0
+Western Australia,Other commercial accommodation,0
+Western Australia,Own property,1756
+Western Australia,Friends or relatives property,11997
+Western Australia,Caravan or camping - non commercial,2876
+Western Australia,Other private accommodation,1604
+Western Australia,Other accommodation,10370
+Tasmania,Hotel/Resort/Motel/Motor inn,4164
+Tasmania,Guest house or bed & breakfast,0
+Tasmania,Rented accommodation,1551
+Tasmania,Caravan park or commercial camping ground,1038
+Tasmania,Backpacker or hostel,0
+Tasmania,Other commercial accommodation,0
+Tasmania,Own property,0
+Tasmania,Friends or relatives property,3366
+Tasmania,Caravan or camping - non commercial,784
+Tasmania,Other private accommodation,0
+Tasmania,Other accommodation,0
+Northern Territory,Hotel/Resort/Motel/Motor inn,2990
+Northern Territory,Guest house or bed & breakfast,0
+Northern Territory,Rented accommodation,0
+Northern Territory,Caravan park or commercial camping ground,0
+Northern Territory,Backpacker or hostel,0
+Northern Territory,Other commercial accommodation,0
+Northern Territory,Own property,0
+Northern Territory,Friends or relatives property,1130
+Northern Territory,Caravan or camping - non commercial,0
+Northern Territory,Other private accommodation,0
+Northern Territory,Other accommodation,0
+Australian Capital Territory,Hotel/Resort/Motel/Motor inn,3218
+Australian Capital Territory,Guest house or bed & breakfast,0
+Australian Capital Territory,Rented accommodation,0
+Australian Capital Territory,Caravan park or commercial camping ground,0
+Australian Capital Territory,Backpacker or hostel,0
+Australian Capital Territory,Other commercial accommodation,0
+Australian Capital Territory,Own property,0
+Australian Capital Territory,Friends or relatives property,3513
+Australian Capital Territory,Caravan or camping - non commercial,0
+Australian Capital Territory,Other private accommodation,0
+Australian Capital Territory,Other accommodation,0
