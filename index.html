@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Australian Tourism Data Visualization</title>
+
+    <!-- Load Vega, Vega-Lite, and Vega-Embed libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Australian Tourism Data Visualization</h1>
+        <br>
+        <div id="visualisation_1"></div>
+        <div id="visualisation_2"></div>
+    </div>
+
+    <script type="text/javascript">
+        // Reference the external Vega-Lite specification file
+        var spec = "js/visualization.vg(1).json";  // Path to the Vega-Lite JSON file
+        var spec2 = "js/visualization.vg(2).json";
+        // Use vegaEmbed to load the visualization into the div with id="choropleth_map"
+        vegaEmbed('#visualisation_1', spec).then(function (result) {
+            // You can access the Vega view instance as result.view here if needed
+        }).catch(console.error);  // Catch any errors and log them to the console
+        vegaEmbed('#visualisation_1', spec2).then(function (result) {
+            // You can access the Vega view instance as result.view here if needed
+        }).catch(console.error);  // Catch any errors and log them to the console
+    </script>
+</body>
+
+</html>
