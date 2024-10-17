@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Australian Tourism Data</title>
+    <title>Australian Domestic Tourism Data</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,6 +24,13 @@
         h2 {
             color: #154c79;
             margin-bottom: 10px;
+        }
+
+        h3 {
+            color: #2a7dbd;
+            margin-top: 40px;
+            margin-bottom: 20px;
+
         }
 
         p {
@@ -52,7 +59,6 @@
             width: 100%;
             padding: 10px;
             background-color: #f9f9f9;
-            /* Matches the body background */
         }
 
         .large-chart {
@@ -77,19 +83,22 @@
 
     <div class="container">
         <!-- Main Title -->
-        <h1>Australian Tourism Data Insights (2023 and 2024)</h1>
-        <p>Explore the dynamic landscape of Australian tourism, where each state tells a unique story. This report
-            delves into the numbers behind the journey—uncovering which states have most number of visitors, why they
+        <h1>Domestic Australian Tourism Data Insights (2023 and 2024)</h1>
+        <p>Explore the dynamic landscape of local Australian tourism, where each state tells a unique story. This report
+            delves into the numbers behind the journey—uncovering which States the local Australian population travel
+            the most, why they
             travel, how much they spend, and where they choose to stay. With insights on visitor patterns, spending
             habits, accommodation preferences, and more, this visual story reveals the powerful impact of tourism across
             Australia's diverse regions. Discover the data that shapes one of the country's most vital industries and
-            gain a deeper understanding of the trends that influence both domestic and international travelers.
+            gain a deeper understanding of the trends that influence domestic travel.
 
         </p>
 
+        <h2>Visitor Patterns</h2>
+
         <!-- Section 1: Number of Visitors by State -->
         <div class="section">
-            <h2>Number of Visitors by State</h2>
+            <h3>Number of Visitors by State</h3>
             <div class="grid-layout">
                 <div class="visualization large-chart" id="visualization1"></div>
                 <div>
@@ -105,7 +114,7 @@
 
         <!-- Section 2: Visitor Reasons by State -->
         <div class="section">
-            <h2>Visitor Reasons by State</h2>
+            <h3>Visitor Reasons by State</h3>
             <div class="grid-layout">
                 <div>
                     <p>New South Wales, Victoria, and Queensland lead in visitor numbers, driven
@@ -117,9 +126,11 @@
             </div>
         </div>
 
+        <h2>Accommodation Choices</h2>
+
         <!-- Section 3: Nights Spent in Different Accommodations -->
         <div class="section">
-            <h2>Nights Spent in Different Accommodations by State</h2>
+            <h3>Nights Spent in Different Accommodations by State</h3>
             <div class="grid-layout">
                 <div class="visualization" id="visualization6"></div>
                 <div>
@@ -132,9 +143,11 @@
             </div>
         </div>
 
+        <h2>Spending Trends</h2>
+
         <!-- Section 4: Average Visitor Spending by State -->
         <div class="section">
-            <h2>Average Visitor Spending by State</h2>
+            <h3>Average Visitor Spending by State</h3>
             <div class="grid-layout">
                 <div class="visualization large-chart" id="visualization4"></div>
                 <div>
@@ -149,7 +162,7 @@
 
         <!-- Section 5: Spending by Visit Reason -->
         <div class="section">
-            <h2>Spending by Visit Reason</h2>
+            <h3>Spending by Visit Reason</h3>
             <div class="grid-layout">
                 <div>
                     <p>
@@ -165,7 +178,7 @@
 
         <!-- Section 6: Domestic Tourist Spending by Category -->
         <div class="section">
-            <h2>Domestic Tourist Spending by Category</h2>
+            <h3>Domestic Tourist Spending by Category</h3>
             <div class="grid-layout">
                 <div class="visualization" id="visualization5"></div>
                 <div>
