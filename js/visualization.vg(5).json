@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Number of Visitors(Millions) for each State",
-  "width": 400,
+  "width": 250,
   "height": 300,
   "projection": {
     "type": "equirectangular"
