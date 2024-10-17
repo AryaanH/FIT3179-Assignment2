@@ -4,63 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Australian Tourism Data Story</title>
+    <title>Australian Tourism Data</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            color: #333;
             margin: 0;
             padding: 0;
             background-color: #f9f9f9;
-            color: #333;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 60%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
+        h1,
         h2 {
-            color: #2c3e50;
+            color: #154c79;
             margin-bottom: 10px;
         }
 
         p {
-            margin: 10px 0 20px;
             color: #555;
             line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         .section {
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
 
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
+            align-items: start;
         }
 
-        .chart,
-        .text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .chart {
-            max-width: 650px;
-        }
-
-        .text {
-            max-width: 450px;
+        .full-width {
+            grid-column: span 2;
+            margin-top: 20px;
         }
 
         .visualization {
             width: 100%;
-            border: 1px solid #ddd;
             padding: 10px;
-            background-color: #fff;
+            background-color: #f9f9f9;
+            /* Matches the body background */
+        }
+
+        .large-chart {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .caption {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 20px;
         }
     </style>
     <!-- Load Vega, Vega-Lite, and Vega-Embed libraries -->
@@ -72,109 +76,123 @@
 <body>
 
     <div class="container">
-        <!-- Section 1: Number of Visitors per State and Visitor Reasons -->
+        <!-- Main Title -->
+        <h1>Australian Tourism Data Insights (2023 and 2024)</h1>
+        <p>Explore the dynamic landscape of Australian tourism, where each state tells a unique story. This report
+            delves into the numbers behind the journey—uncovering which states have most number of visitors, why they
+            travel, how much they spend, and where they choose to stay. With insights on visitor patterns, spending
+            habits, accommodation preferences, and more, this visual story reveals the powerful impact of tourism across
+            Australia's diverse regions. Discover the data that shapes one of the country's most vital industries and
+            gain a deeper understanding of the trends that influence both domestic and international travelers.
+
+        </p>
+
+        <!-- Section 1: Number of Visitors by State -->
         <div class="section">
-            <h2>1. Number of Visitors by State</h2>
-            <div class="row">
-                <div class="chart">
-                    <div id="visualization1" class="visualization"></div>
-                </div>
-                <div class="text">
-                    <p>This map provides an overview of the number of visitors (in millions) for each state in
-                        Australia, segmented by year. This information helps in understanding the distribution of
-                        tourist footfall across the country. You can toggle between 2023 and 2024 to observe any changes
-                        in visitor numbers.</p>
+            <h2>Number of Visitors by State</h2>
+            <div class="grid-layout">
+                <div class="visualization large-chart" id="visualization1"></div>
+                <div>
+                    <p>New South Wales leads with the highest visitor numbers,
+                        topping the list for both years. Tourist numbers across other states remain relatively stable,
+                        reflecting a consistent pattern. However, 2024 shows a slight increase in visitors to Victoria
+                        and Tasmania, indicating a modest growth in tourism activity in these regions.
+
+                    </p>
                 </div>
             </div>
         </div>
 
         <!-- Section 2: Visitor Reasons by State -->
         <div class="section">
-            <h2>2. Visitor Reasons by State</h2>
-            <div class="row">
-                <div class="chart">
-                    <div id="visualization2" class="visualization"></div>
+            <h2>Visitor Reasons by State</h2>
+            <div class="grid-layout">
+                <div>
+                    <p>New South Wales, Victoria, and Queensland lead in visitor numbers, driven
+                        mostly by holidays, social visits and business purposes. Smaller states like Tasmania and the
+                        Northern Territory see tourism primarily
+                        for Holidays. This reflects diverse travel motivations across Australia.</p>
                 </div>
-                <div class="text">
-                    <p>This bar chart categorizes the reasons for visits to different Australian states, highlighting
-                        the purposes for travel such as holidays, business, and visiting friends or relatives.
-                        Understanding these reasons can help tailor tourism campaigns and initiatives to attract more
-                        visitors in specific segments.</p>
-                </div>
+                <div class="visualization" id="visualization2"></div>
             </div>
         </div>
 
-        <!-- Section 3: Nights Spent by Accommodation Type -->
+        <!-- Section 3: Nights Spent in Different Accommodations -->
         <div class="section">
-            <h2>3. Nights Spent in Different Accommodations by State</h2>
-            <div class="row">
-                <div class="chart">
-                    <div id="visualization6" class="visualization"></div>
-                </div>
-                <div class="text">
-                    <p>This chart shows how long visitors stay in different types of accommodations in each state, such
-                        as hotels, motels, and private properties. This data offers insights into accommodation
-                        preferences, potentially aiding accommodation providers and policymakers in planning and
-                        promoting various lodging options.</p>
+            <h2>Nights Spent in Different Accommodations by State</h2>
+            <div class="grid-layout">
+                <div class="visualization" id="visualization6"></div>
+                <div>
+                    <p>Staying with friends or relatives is most common, especially in New South Wales and Queensland.
+                        Hotels and motels are also popular, particularly in Victoria and Western Australia. Other
+                        options like rented accommodations and non-commercial camping contribute less but show varied
+                        preferences across the states. This breakdown highlights diverse accommodation choices in
+                        Australian tourism.</p>
                 </div>
             </div>
         </div>
 
         <!-- Section 4: Average Visitor Spending by State -->
         <div class="section">
-            <h2>4. Average Visitor Spending by State</h2>
-            <div class="row">
-                <div class="chart">
-                    <div id="visualization4" class="visualization"></div>
-                </div>
-                <div class="text">
-                    <p>This map visualizes the average amount spent by visitors in each state. By showing spending per
-                        visitor, it helps identify which states benefit most economically from each tourist. The data
-                        also indicates how spending varies by state, reflecting differences in cost and attractions.</p>
+            <h2>Average Visitor Spending by State</h2>
+            <div class="grid-layout">
+                <div class="visualization large-chart" id="visualization4"></div>
+                <div>
+                    <p>Northern Territory leads in average visitor spending, closely followed by Tasmania, while
+                        Victoria has the lowest spending per visitor. In 2024, average spending further declined in
+                        Victoria and South Australia, indicating a potential shift in visitor spending behavior. In
+                        contrast, Western Australia and the Northern Territory saw significant increases in visitor
+                        spending, suggesting heightened economic impact from tourism in these regions.</p>
                 </div>
             </div>
         </div>
 
         <!-- Section 5: Spending by Visit Reason -->
         <div class="section">
-            <h2>5. Spending by Visit Reason</h2>
-            <div class="row">
-                <div class="chart">
-                    <div id="visualization3" class="visualization"></div>
+            <h2>Spending by Visit Reason</h2>
+            <div class="grid-layout">
+                <div>
+                    <p>
+                        Across Australia, most tourism spending is driven by holidays, followed by business trips. In
+                        each state, holiday spending generally dominates; however, the Australian Capital Territory
+                        (ACT) stands out, where business trip spending surpasses holiday expenses. In fact, holiday
+                        spending in the ACT is even lower than spending on visits to friends and family, highlighting
+                        its unique role as a business travel destination.</p>
                 </div>
-                <div class="text">
-                    <p>This pie chart breaks down spending by the purpose of visit, giving an overview of how much
-                        tourists spend on holidays, business trips, or visiting friends and family. Understanding these
-                        categories helps in assessing which segments contribute most to the tourism economy.</p>
-                </div>
+                <div class="visualization" id="visualization3"></div>
             </div>
         </div>
 
-        <!-- Section 6: Spending by Category -->
+        <!-- Section 6: Domestic Tourist Spending by Category -->
         <div class="section">
-            <h2>6. Tourist Spending by Category</h2>
-            <div class="row">
-                <div class="chart">
-                    <div id="visualization5" class="visualization"></div>
-                </div>
-                <div class="text">
-                    <p>This bar chart provides insights into the specific spending categories for domestic tourists,
-                        ranging from accommodation to transportation and entertainment. This data helps in understanding
-                        where the most money is spent, enabling businesses and policymakers to prioritize high-impact
-                        areas.</p>
+            <h2>Domestic Tourist Spending by Category</h2>
+            <div class="grid-layout">
+                <div class="visualization" id="visualization5"></div>
+                <div>
+                    <p>
+                        Accommodation is the largest spending category for domestic tourists in Australia, followed by
+                        dining and transportation costs like airfares and fuel. Shopping,
+                        groceries, and entertainment also see notable spending, while categories such as organized
+                        tours, public transport, and gambling account for much smaller portions. This highlights the
+                        main areas where tourists allocate their budgets.</p>
                 </div>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
-        // Load each visualization into its corresponding div
-        vegaEmbed('#visualization1', 'js/visualization.vg(5).json').catch(console.error);
-        vegaEmbed('#visualization2', 'js/visualization.vg(2).json').catch(console.error);
-        vegaEmbed('#visualization3', 'js/visualization.vg(3).json').catch(console.error);
-        vegaEmbed('#visualization4', 'js/visualization.vg(1).json').catch(console.error);
-        vegaEmbed('#visualization5', 'js/visualization.vg(4).json').catch(console.error);
-        vegaEmbed('#visualization6', 'js/visualization.vg(6).json').catch(console.error);
+        // Embed each visualization with a transparent background and without action buttons
+        const embedOptions = {
+            config: { background: null },  // Set background to transparent
+            actions: false  // Remove action buttons
+        };
+
+        vegaEmbed('#visualization1', 'js/visualization.vg(5).json', embedOptions).catch(console.error);
+        vegaEmbed('#visualization2', 'js/visualization.vg(2).json', embedOptions).catch(console.error);
+        vegaEmbed('#visualization3', 'js/visualization.vg(3).json', embedOptions).catch(console.error);
+        vegaEmbed('#visualization4', 'js/visualization.vg(1).json', embedOptions).catch(console.error);
+        vegaEmbed('#visualization5', 'js/visualization.vg(4).json', embedOptions).catch(console.error);
+        vegaEmbed('#visualization6', 'js/visualization.vg(6).json', embedOptions).catch(console.error);
     </script>
 
 </body>

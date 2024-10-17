@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Nights Spent ('000) by Visitors in Different Accommodations by State",
-  "width": 700,
-  "height": 500,
+  "width": 400,
+  "height": 300,
   "data": {
     "url": "https://raw.githubusercontent.com/AryaanH/FIT3179-Assignment2/refs/heads/main/data/visualisation5.csv",
     "format": {

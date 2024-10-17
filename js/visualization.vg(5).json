@@ -82,7 +82,7 @@
             "domain": [
               3,
               6,
-              12,
+              11,
               20,
               28,
               35
@@ -135,9 +135,9 @@
     {
       "mark": {
         "type": "text",
-        "fontSize": 10,
+        "fontSize": 6,
         "fontWeight": "bold",
-        "dx": 100,
+        "dx": 60,
         "dy": -5,
         "color": "#282f38",
         "fontStyle": "italic"
@@ -155,7 +155,7 @@
           "field": "countryLayout.properties.latitude"
         },
         "text": {
-          "value": "Significant increase from past Year"
+          "value": "Slight increase from past Year"
         },
         "tooltip": [
           {
@@ -174,7 +174,7 @@
     {
       "mark": {
         "type": "text",
-        "fontSize": 10,
+        "fontSize": 6,
         "fontWeight": "bold",
         "dx": 10,
         "dy": 15,
@@ -194,7 +194,7 @@
           "field": "countryLayout.properties.latitude"
         },
         "text": {
-          "value": "Significant increase from past Year"
+          "value": "Slight increase from past Year"
         },
         "tooltip": [
           {

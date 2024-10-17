@@ -69,8 +69,11 @@
     ]
   },
   "config": {
-    "bar": {
-      "tooltip": true
+    "view": {
+      "stroke": "transparent"
+    },
+    "axis": {
+      "grid": false
     }
   }
 }
