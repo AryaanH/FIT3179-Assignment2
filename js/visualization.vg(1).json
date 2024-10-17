@@ -71,13 +71,13 @@
           "scale": {
             "type": "threshold",
             "range": [
-              "#f0f9e8",
-              "#ccebc5",
-              "#a8ddb5",
-              "#7bccc4",
-              "#4eb3d3",
-              "#2b8cbe",
-              "#08589e"
+              "#fef0d9",
+              "#fdd49e",
+              "#fdbb84",
+              "#fc8d59",
+              "#ef6548",
+              "#d7301f",
+              "#990000"
             ],
             "domain": [
               800,
