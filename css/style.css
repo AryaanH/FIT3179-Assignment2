@@ -85,3 +85,14 @@ p {
     max-width: 100%;
     height: auto;
 }
+
+footer {
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+    /* Matches the page background */
+    border-top: 1px solid #ccc;
+    margin-top: 40px;
+}
